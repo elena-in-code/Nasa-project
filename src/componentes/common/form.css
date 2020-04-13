@@ -1,0 +1,16 @@
+.form__container {
+  padding: 20px;
+}
+
+.form__input{
+  padding: 5px;
+  border-radius: 5px;
+  margin: 0 5px;
+  border: 1px solid lightgray;
+}
+
+.form__button{
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+}

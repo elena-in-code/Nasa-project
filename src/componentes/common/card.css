@@ -1,0 +1,11 @@
+.card__wrapper {
+  border: 2px solid lightgray;
+  margin: 10px 0;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.card__image {
+  max-width: -webkit-fill-available;
+  border-radius: 5px;
+}
