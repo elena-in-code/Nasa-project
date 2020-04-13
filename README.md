@@ -16,3 +16,6 @@ Mobile first
 ### Create React App
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+### Thanks 
+[Henar Mendiola](https://github.com/Maritxis) and her talk in FrontFest Madrid 2020 that inspired me to make this app
+
