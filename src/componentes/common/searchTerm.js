@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'; 
 
-// import './searchTerm.css';
+// import './searchTerm.scss';
 
 const SearchTerm = props => {
   const { searchTerm } = props;

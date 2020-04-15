@@ -1,0 +1,26 @@
+.message__wrapper{
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  justify-content: stretch;
+  margin: auto;
+  font-weight: 500;
+
+  &--info {
+    padding: 10px;
+    background-color: #cacafe;
+    color: #0707f8;
+  }
+
+  &--warning {
+    padding: 10px;
+    background-color: #fae9b4;
+    color: #FF9800;
+  }
+
+  &--error {
+    padding: 10px;
+    background-color: #f9c0c0;
+    color: #f31717;
+  }
+}

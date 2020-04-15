@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'; 
-import './form.css';
+import './form.scss';
 
 const Form = props => {
   const { onClick, value, onChange, buttonText, showInput } = props;
