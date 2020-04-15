@@ -5,11 +5,11 @@ React App to search [Nasa API](https://api.nasa.gov/?search=https%3A%2F%2Fimages
 ## Responsive
 Mobile first
 
-### Desktop
-![nasa-app-desktop-v2](https://user-images.githubusercontent.com/30567608/79353411-50959600-7f3b-11ea-97ed-12a03dda3ee5.gif)
-
 
 ### Mobile
+![nasa-app-desktop-v2](https://user-images.githubusercontent.com/30567608/79353411-50959600-7f3b-11ea-97ed-12a03dda3ee5.gif)
+
+### Desktop
 ![nasa-app-mobile-v2](https://user-images.githubusercontent.com/30567608/79353366-42477a00-7f3b-11ea-8e39-e3dbdf46cf24.gif)
 
 
