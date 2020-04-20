@@ -19,7 +19,7 @@ const Search = () => {
   const [radioButtonSelection, setRadioButtonSelection] = useState('all');
 
   const mediaTypeURL =
-    radioButtonSelection !== 'all' && `&media_type=${radioButtonSelection}`;
+    radioButtonSelection !== 'all' ? `&media_type=${radioButtonSelection}` : '';
 
   const handleChange = (event) => {
     setInputValue(event.target.value);
