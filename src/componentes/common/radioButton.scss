@@ -1,0 +1,15 @@
+.radio-button {
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__section {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  &__input {
+    margin: 0 5px 0 15px;
+  }
+}
