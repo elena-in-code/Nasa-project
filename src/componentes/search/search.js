@@ -81,6 +81,7 @@ const Search = () => {
     setInputValue('');
     setShowInput(true);
     setSubmitted(false);
+    setRadioButtonSelection('all');
   };
 
   const handleRadioButtonChange = (event) => {
