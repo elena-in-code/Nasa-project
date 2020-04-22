@@ -37,13 +37,13 @@ const RadioButton = (props) => {
         <input
           className="radio-button__input"
           type="radio"
-          id="videos"
+          id="audios"
           name="mediaRadioButtons"
-          value="video"
-          checked={checked === 'video'}
+          value="audio"
+          checked={checked === 'audio'}
           onChange={onChange}
         />
-        <label htmlFor="videos">Videos</label>
+        <label htmlFor="audios">Audios</label>
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ const nasaURL = 'https://images-api.nasa.gov/search?q=';
 
 const Search = () => {
   const [inputValue, setInputValue] = useState('');
-  const [items, setItems] = useState([]);
+  const [cards, setCards] = useState([]);
   const [showInput, setShowInput] = useState(true);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -21,31 +21,67 @@ const Search = () => {
   const mediaTypeURL =
     radioButtonSelection !== 'all' ? `&media_type=${radioButtonSelection}` : '';
 
-  const handleChange = (event) => {
-    setInputValue(event.target.value);
-    setSubmitted(false);
+  const fetchData = async () => {
+    let dataResponse = await fetch(nasaURL + inputValue + mediaTypeURL);
+    let dataResponseJson = await dataResponse.json();
+
+    const rawItems = dataResponseJson.collection.items;
+    let cardCollection = await Promise.all(
+      rawItems.map(async (item) => {
+        const { data, links, href } = item;
+        const { title, description, nasa_id, media_type } = data[0];
+        const imageLink = links ? links[0].href : '';
+        let audioLink;
+
+        if (media_type === 'audio') {
+          let audioResponse = await fetch(href);
+          let audioResponseJson = await audioResponse.json();
+          audioLink = audioResponseJson[0];
+        }
+        const card = {
+          title,
+          description,
+          nasaId: nasa_id,
+          imageLink,
+          audio: audioLink,
+        };
+        return card;
+      })
+    );
+    setLoading(false);
+    setCards(cardCollection);
   };
 
   const handleSubmit = () => {
     if (inputValue) {
       setLoading(true);
-      fetch(nasaURL + inputValue + mediaTypeURL).then((response) =>
-        response
-          .json()
-          .then((data) => {
-            setItems(data.collection.items);
-            setLoading(false);
-          })
-          .catch((error) => console.log(error))
-      );
+      fetchData();
     }
     return setSubmitted(true);
+  };
+
+  const handleChange = (event) => {
+    setInputValue(event.target.value);
+    setSubmitted(false);
+  };
+
+  const handleReset = () => {
+    setCards([]);
+    setInputValue('');
+    setShowInput(true);
+    setSubmitted(false);
+  };
+
+  const handleRadioButtonChange = (event) => {
+    if (event && event.target.checked) {
+      setRadioButtonSelection(event.target.value);
+    }
   };
 
   const renderMessage = () => {
     if (loading)
       return <Message messageText="Loading..." messageStatusClassName="info" />;
-    if (submitted && inputValue && items.length === 0)
+    if (submitted && inputValue && cards.length === 0)
       return (
         <Message
           messageText="There is no results for your search, please reset your search and try again"
@@ -61,25 +97,18 @@ const Search = () => {
       );
   };
 
-  const handleReset = () => {
-    setItems([]);
-    setInputValue('');
-    setShowInput(true);
-    setSubmitted(false);
-  };
-
   const renderSearchResults = () => {
-    if (items) {
-      const getCardComponent = items.map((item) => {
-        const { data, links } = item;
-        const { title, description, nasa_id } = data[0];
+    if (cards) {
+      const getCardComponent = cards.map((card) => {
+        const { imageLink, title, description, nasaId, audio } = card;
         return (
           <Card
-            key={nasa_id}
+            key={nasaId}
             cardTitle={title}
-            image={links ? links[0].href : ''}
+            image={imageLink}
             imageAlt={title}
             description={description}
+            audio={audio}
           />
         );
       });
@@ -87,33 +116,27 @@ const Search = () => {
     }
   };
 
-  const handleRadioButtonChange = (event) => {
-    if (event && event.target.checked) {
-      setRadioButtonSelection(event.target.value);
-    }
-  };
-
   return (
     <div className="search__container">
       <Form
         onClick={
-          items.length === 0 ? () => handleSubmit() : () => handleReset()
+          cards.length === 0 ? () => handleSubmit() : () => handleReset()
         }
         onChange={handleChange}
         value={inputValue}
-        buttonText={items.length === 0 ? 'Search' : 'Reset Search'}
-        showInput={items.length === 0 && showInput}
+        buttonText={cards.length === 0 ? 'Search' : 'Reset Search'}
+        showInput={cards.length === 0 && showInput}
       />
-      {items.length === 0 && (
+      {cards.length === 0 && (
         <RadioButton
           checked={radioButtonSelection}
           onChange={handleRadioButtonChange}
         />
       )}
       {renderMessage()}
-      {items.length !== 0 && <SearchTerm searchTerm={inputValue} />}
+      {cards.length !== 0 && <SearchTerm searchTerm={inputValue} />}
       <div className="search-results__container">
-        {items.length !== 0 && renderSearchResults()}
+        {cards.length !== 0 && renderSearchResults()}
       </div>
     </div>
   );
