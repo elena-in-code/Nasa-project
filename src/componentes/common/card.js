@@ -4,13 +4,25 @@ import PropTypes from 'prop-types';
 import './card.scss';
 
 const Card = (props) => {
-  const { cardTitle, image, imageAlt, description, audio } = props;
+  const { cardTitle, image, imageAlt, description, audio, video } = props;
 
   return (
     <div className="card__wrapper">
       <h3>{cardTitle}</h3>
-      {image && <img className="card__image" src={image} alt={imageAlt} />}
+      {image && !video && (
+        <img className="card__image" src={image} alt={imageAlt} />
+      )}
       {audio && <audio controls src={audio} />}
+      {video && (
+        <video
+          className="card__image"
+          controls
+          src={video}
+          width="100%"
+          type="video/mp4"
+          poster={image}
+        />
+      )}
       <p>{description}</p>
     </div>
   );
@@ -22,6 +34,7 @@ Card.propTypes = {
   imageAlt: PropTypes.string,
   description: PropTypes.string,
   audio: PropTypes.string,
+  video: PropTypes.string,
 };
 
 Card.defaultProps = {
@@ -30,6 +43,7 @@ Card.defaultProps = {
   imageAlt: '',
   description: '',
   audio: '',
+  video: '',
 };
 
 export default Card;

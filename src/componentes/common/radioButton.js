@@ -45,6 +45,19 @@ const RadioButton = (props) => {
         />
         <label htmlFor="audios">Audios</label>
       </div>
+
+      <div className="radio-button__section">
+        <input
+          className="radio-button__input"
+          type="radio"
+          id="videos"
+          name="mediaRadioButtons"
+          value="video"
+          checked={checked === 'video'}
+          onChange={onChange}
+        />
+        <label htmlFor="videos">Videos</label>
+      </div>
     </div>
   );
 };

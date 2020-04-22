@@ -32,11 +32,21 @@ const Search = () => {
         const { title, description, nasa_id, media_type } = data[0];
         const imageLink = links ? links[0].href : '';
         let audioLink;
+        let videoLink;
 
         if (media_type === 'audio') {
           let audioResponse = await fetch(href);
           let audioResponseJson = await audioResponse.json();
           audioLink = audioResponseJson[0];
+        }
+
+        if (media_type === 'video') {
+          let videoResponse = await fetch(href);
+          let videoResponseJson = await videoResponse.json();
+          const mp4VideoResponse = videoResponseJson.find((video) =>
+            video.includes('mp4')
+          );
+          videoLink = mp4VideoResponse;
         }
         const card = {
           title,
@@ -44,6 +54,7 @@ const Search = () => {
           nasaId: nasa_id,
           imageLink,
           audio: audioLink,
+          video: videoLink,
         };
         return card;
       })
@@ -100,7 +111,7 @@ const Search = () => {
   const renderSearchResults = () => {
     if (cards) {
       const getCardComponent = cards.map((card) => {
-        const { imageLink, title, description, nasaId, audio } = card;
+        const { imageLink, title, description, nasaId, audio, video } = card;
         return (
           <Card
             key={nasaId}
@@ -109,6 +120,7 @@ const Search = () => {
             imageAlt={title}
             description={description}
             audio={audio}
+            video={video}
           />
         );
       });
