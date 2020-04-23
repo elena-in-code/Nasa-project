@@ -92,22 +92,25 @@ const Search = () => {
   };
 
   const renderMessage = () => {
-    if (loading)
+    if (loading) {
       return <Message messageText="Loading..." messageStatusClassName="info" />;
-    if (submitted && inputValue && cards.length === 0)
+    }
+    if (submitted && inputValue && cards.length === 0) {
       return (
         <Message
           messageText="There is no results for your search, please reset your search and try again"
           messageStatusClassName="warning"
         />
       );
-    if (!inputValue)
+    }
+    if (!inputValue) {
       return (
         <Message
           messageText="Please insert text to start searching"
           messageStatusClassName="info"
         />
       );
+    }
   };
 
   const renderSearchResults = () => {
