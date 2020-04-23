@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import getData from '../../../utils/getData';
+
 import Form from '../../common/form/form';
 import Card from '../../common/card/card';
 import SearchTerm from '../../common/search-term/searchTerm';
@@ -22,8 +24,7 @@ const Search = () => {
     radioButtonSelection !== 'all' ? `&media_type=${radioButtonSelection}` : '';
 
   const fetchData = async () => {
-    let dataResponse = await fetch(nasaURL + inputValue + mediaTypeURL);
-    let dataResponseJson = await dataResponse.json();
+    const dataResponseJson = await getData(nasaURL + inputValue + mediaTypeURL);
 
     const rawItems = dataResponseJson.collection.items;
     let cardCollection = await Promise.all(
@@ -36,14 +37,12 @@ const Search = () => {
         let videoLink;
 
         if (media_type === 'audio') {
-          let audioResponse = await fetch(href);
-          let audioResponseJson = await audioResponse.json();
+          const audioResponseJson = await getData(href);
           audioLink = audioResponseJson[0];
         }
 
         if (media_type === 'video') {
-          let videoResponse = await fetch(href);
-          let videoResponseJson = await videoResponse.json();
+          const videoResponseJson = await getData(href);
           const mp4VideoResponse = videoResponseJson.find((video) =>
             video.includes('mp4')
           );
@@ -115,6 +114,7 @@ const Search = () => {
     if (cards) {
       const getCardComponent = cards.map((card) => {
         const { imageLink, title, description, nasaId, audio, video } = card;
+        console.log('card :>> ', card);
         return (
           <Card
             key={nasaId}

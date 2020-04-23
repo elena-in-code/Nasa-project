@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import './card.scss';
 
 const Card = (props) => {
-  const { cardTitle, image, imageAlt, description, audio, video } = props;
+  const { cardTitle, image, imageAlt, description, audio, video, key } = props;
 
   return (
-    <div className="card__wrapper">
+    <div className="card__wrapper" key={key}>
       <h3>{cardTitle}</h3>
       {image && !video && (
         <img className="card__image" src={image} alt={imageAlt} />
@@ -35,6 +35,7 @@ Card.propTypes = {
   description: PropTypes.string,
   audio: PropTypes.string,
   video: PropTypes.string,
+  key: PropTypes.string,
 };
 
 Card.defaultProps = {
@@ -44,6 +45,7 @@ Card.defaultProps = {
   description: '',
   audio: '',
   video: '',
+  key: '',
 };
 
 export default Card;
