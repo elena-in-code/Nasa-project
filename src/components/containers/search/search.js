@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-import Form from '../common/form';
-import Card from '../common/card';
-import SearchTerm from '../common/searchTerm';
-import Message from '../common/message';
-import RadioButton from '../common/radioButton';
+import Form from '../../common/form/form';
+import Card from '../../common/card/card';
+import SearchTerm from '../../common/search-term/searchTerm';
+import Message from '../../common/message/message';
+import RadioButton from '../../common/radio-button/radioButton';
 
 import './search.scss';
 
@@ -31,6 +31,7 @@ const Search = () => {
         const { data, links, href } = item;
         const { title, description, nasa_id, media_type } = data[0];
         const imageLink = links ? links[0].href : '';
+
         let audioLink;
         let videoLink;
 
@@ -48,6 +49,7 @@ const Search = () => {
           );
           videoLink = mp4VideoResponse;
         }
+
         const card = {
           title,
           description,
